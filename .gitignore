@@ -1,0 +1,4 @@
+.idea/
+venv/
+*/__pycache__/
+posts_social_network/posts_social_network/__pycache__/
