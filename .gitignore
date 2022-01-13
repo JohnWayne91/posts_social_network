@@ -2,3 +2,8 @@
 venv/
 */__pycache__/
 posts_social_network/posts_social_network/__pycache__/
+posts_social_network/bot2.py
+posts_social_network/posts/__pycache__/
+posts_social_network/posts/api/__pycache__/
+posts_social_network/posts/migrations/0001_initial.py
+posts_social_network/posts/migrations/__pycache__/
