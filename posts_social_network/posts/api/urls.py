@@ -9,7 +9,7 @@ router.register(r'likes', LikeApiView)
 
 urlpatterns = [
     path('analytics/', AnalyticView.as_view(), name='analytic'),
-    path('user-activity/<int:pk>/', UserActivityView.as_view(), name='user-detail'),
+    path('user-activity/<int:pk>/', UserActivityView.as_view(), name='user-activity'),
 
 ]
 
