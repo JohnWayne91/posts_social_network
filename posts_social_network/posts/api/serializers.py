@@ -9,9 +9,11 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
 
+    useractivity__last_request = serializers.DateTimeField()
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'last_login')
+        fields = ('username', 'last_login', 'useractivity__last_request')
 
 
 class AnalyticSerializer(serializers.ModelSerializer):
@@ -41,3 +43,4 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = '__all__'
+
