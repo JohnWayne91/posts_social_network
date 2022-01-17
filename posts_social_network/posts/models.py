@@ -21,3 +21,11 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class UserActivity(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    last_request = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.last_request)
