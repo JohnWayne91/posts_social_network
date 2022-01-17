@@ -44,6 +44,10 @@ class AnalyticView(ListAPIView):
         return filtered_queryset
 
 
-class UserDetailView(RetrieveAPIView):
+class UserActivityView(RetrieveAPIView):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = User.objects.values('username', 'last_login', 'useractivity__last_request')
+
+
+
+
