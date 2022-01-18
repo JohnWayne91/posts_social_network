@@ -38,17 +38,14 @@ class Bot:
             self.created_users_id.append(json.loads(r.text)['id'])
 
     def sign_in(self):
-        url = 'http://127.0.0.1:8000/api-authlogin/'
+        url = 'http://127.0.0.1:8000/api-auth/login/'
         for user in self.user_data:
-            client = requests.session()
-            client.get(url)
-            csrftoken = client.cookies['csrftoken']
+            jwt = self.get_jwt(user['username'], user['password'])
             login_data = {
                             'username': user['username'],
-                            'password': user['password'],
-                            'csrfmiddlewaretoken': csrftoken
+                            'password': user['password']
                         }
-            requests.post(url, data=login_data, headers=dict(Referer=url))
+            requests.post(url, data=login_data, headers=dict(Referer=url, Authorization='Bearer ' + jwt))
 
     def create_posts(self):
         posts_per_user = randint(0, self.max_posts_amount)
@@ -68,6 +65,12 @@ class Bot:
             for j in range(likes_per_user):
                 requests.post('http://127.0.0.1:8000/api/likes/',
                               data={'user': id, 'post': {choice(self.created_posts_id)}})
+
+    def get_jwt(self, username, password):
+        r = requests.post('http://127.0.0.1:8000/api/token/', data={'username': username, 'password': password})
+        jwt = json.loads(r.text)
+        return jwt['access']
+
 
     @classmethod
     def bot_from_config(cls):
