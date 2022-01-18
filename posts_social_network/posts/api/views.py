@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.db.models import Count
 
 from django_filters import rest_framework as filters
@@ -6,12 +5,11 @@ from django_filters import rest_framework as filters
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import AllowAny
 
-from ..models import Post, Like
+from ..models import Post, Like, UserProfile
 from .filters import DateRangeFilterSet
-from .serializers import PostSerializer, AnalyticSerializer, UserSerializer, LikeSerializer
-
-User = get_user_model()
+from .serializers import PostSerializer, AnalyticSerializer, UserSerializer, LikeSerializer, UserSignUpSerializer
 
 
 class PostApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,  GenericViewSet):
@@ -46,8 +44,10 @@ class AnalyticView(ListAPIView):
 
 class UserActivityView(RetrieveAPIView):
     serializer_class = UserSerializer
-    queryset = User.objects.values('username', 'last_login', 'useractivity__last_request')
+    queryset = UserProfile.objects.all()
 
 
-
-
+class SignUpUserView(mixins.CreateModelMixin, GenericViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserSignUpSerializer
+    permission_classes = [AllowAny]
