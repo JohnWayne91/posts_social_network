@@ -44,10 +44,10 @@ class Bot:
             client.get(url)
             csrftoken = client.cookies['csrftoken']
             login_data = {
-                                        'username': user['username'],
-                                        'password': user['password'],
-                                        'csrfmiddlewaretoken': csrftoken
-                                     }
+                            'username': user['username'],
+                            'password': user['password'],
+                            'csrfmiddlewaretoken': csrftoken
+                        }
             requests.post(url, data=login_data, headers=dict(Referer=url))
 
     def create_posts(self):
