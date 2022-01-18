@@ -1,19 +1,13 @@
-from django.contrib.auth import get_user_model
-
 from rest_framework import serializers
 
-from ..models import Post, Like
-
-User = get_user_model()
+from ..models import Post, Like, UserProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
 
-    useractivity__last_request = serializers.DateTimeField()
-
     class Meta:
-        model = User
-        fields = ('username', 'last_login', 'useractivity__last_request')
+        model = UserProfile
+        fields = ('username', 'last_login', 'last_request')
 
 
 class AnalyticSerializer(serializers.ModelSerializer):
@@ -44,3 +38,20 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = '__all__'
 
+
+class UserSignUpSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    def create(self, validated_data):
+        user = UserProfile.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+            email=validated_data['email'],
+
+
+        )
+        return user
+
+    class Meta:
+        model = UserProfile
+        fields = ('password', 'username', 'email', 'id')
