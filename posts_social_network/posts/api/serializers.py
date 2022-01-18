@@ -50,6 +50,8 @@ class UserSignUpSerializer(serializers.ModelSerializer):
 
 
         )
+        user.set_password(validated_data['password'])
+        user.is_active = True
         return user
 
     class Meta:
