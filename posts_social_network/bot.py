@@ -18,6 +18,7 @@ class Bot:
     def start_bot(self):
         self.create_users_data()
         self.sign_up_users()
+        self.sign_in()
         self.create_posts()
         self.like_posts()
 
@@ -32,8 +33,22 @@ class Bot:
 
     def sign_up_users(self):
         for user in self.user_data:
-            r = requests.post('http://127.0.0.1:8000/auth/users/', data=user)
+            r = requests.post('http://127.0.0.1:8000/api/sign-up/', data=user)
+            print(r.text)
             self.created_users_id.append(json.loads(r.text)['id'])
+
+    def sign_in(self):
+        url = 'http://127.0.0.1:8000/api-authlogin/'
+        for user in self.user_data:
+            client = requests.session()
+            client.get(url)
+            csrftoken = client.cookies['csrftoken']
+            login_data = {
+                                        'username': user['username'],
+                                        'password': user['password'],
+                                        'csrfmiddlewaretoken': csrftoken
+                                     }
+            requests.post(url, data=login_data, headers=dict(Referer=url))
 
     def create_posts(self):
         posts_per_user = randint(0, self.max_posts_amount)
