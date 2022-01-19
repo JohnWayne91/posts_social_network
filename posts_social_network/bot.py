@@ -6,7 +6,6 @@ from random import randint, choice
 
 class Bot:
     user_data = []
-    created_users_id = []
     created_posts_id = []
 
     def __init__(self, users_amount, max_posts_amount, max_likes_amount):
@@ -16,13 +15,12 @@ class Bot:
         self.faker = Faker()
 
     def start_bot(self):
-        self.create_users_data()
-        self.sign_up_users()
-        self.sign_in()
-        self.create_posts()
-        self.like_posts()
+        self.__create_users_data()
+        self.__sign_up_users()
+        self.__create_posts()
+        self.__like_posts()
 
-    def create_users_data(self):
+    def __create_users_data(self):
         for i in range(self.users_amount):
             user = {
                 'username': self.faker.first_name() + self.faker.last_name(),
@@ -31,46 +29,46 @@ class Bot:
             }
             self.user_data.append(user)
 
-    def sign_up_users(self):
+    def __sign_up_users(self):
         for user in self.user_data:
             r = requests.post('http://127.0.0.1:8000/api/sign-up/', data=user)
-            print(r.text)
-            self.created_users_id.append(json.loads(r.text)['id'])
+            user['id'] = json.loads(r.text)['id']
 
-    def sign_in(self):
-        url = 'http://127.0.0.1:8000/api-auth/login/'
-        for user in self.user_data:
-            jwt = self.get_jwt(user['username'], user['password'])
-            login_data = {
-                            'username': user['username'],
-                            'password': user['password']
-                        }
-            requests.post(url, data=login_data, headers=dict(Referer=url, Authorization='Bearer ' + jwt))
-
-    def create_posts(self):
+    def __create_posts(self):
+        url = 'http://127.0.0.1:8000/api/posts/'
         posts_per_user = randint(0, self.max_posts_amount)
-        for id in self.created_users_id:
+        for user in self.user_data:
+            headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(posts_per_user):
                 r = requests.post(
-                    'http://127.0.0.1:8000/api/posts/', data={'user': f'{id}',
-                                                              'body': self.faker.paragraph(6),
-                                                              'title': self.faker.sentence()
-                                                              }
+                    url=url,
+                    data={
+                        'user': user['id'],
+                        'body': self.faker.paragraph(6),
+                        'title': self.faker.sentence()
+                    },
+                    headers=headers
                 )
                 self.created_posts_id.append(json.loads(r.text)['id'])
 
-    def like_posts(self):
+    def __like_posts(self):
+        url = 'http://127.0.0.1:8000/api/likes/'
         likes_per_user = randint(0, self.max_likes_amount)
-        for id in self.created_users_id:
+        for user in self.user_data:
+            headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(likes_per_user):
-                requests.post('http://127.0.0.1:8000/api/likes/',
-                              data={'user': id, 'post': {choice(self.created_posts_id)}})
+                requests.post(url=url,
+                              data={'user': user['id'], 'post': {choice(self.created_posts_id)}},
+                              headers=headers)
 
-    def get_jwt(self, username, password):
+    @staticmethod
+    def get_headers_with_jwt(username, password):
         r = requests.post('http://127.0.0.1:8000/api/token/', data={'username': username, 'password': password})
         jwt = json.loads(r.text)
-        return jwt['access']
-
+        headers = {
+            "Authorization": f"Bearer {jwt['access']}",
+        }
+        return headers
 
     @classmethod
     def bot_from_config(cls):
