@@ -51,3 +51,4 @@ class SignUpUserView(mixins.CreateModelMixin, GenericViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserSignUpSerializer
     permission_classes = [AllowAny]
+
