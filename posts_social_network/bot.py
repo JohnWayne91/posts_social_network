@@ -5,7 +5,7 @@ from random import randint, choice
 
 
 class Bot:
-    user_data = []
+    __user_data = []
     created_posts_id = []
 
     def __init__(self, users_amount, max_posts_amount, max_likes_amount):
@@ -27,17 +27,17 @@ class Bot:
                 'email': self.faker.email(),
                 'password': self.faker.pystr(min_chars=15, max_chars=25)
             }
-            self.user_data.append(user)
+            self.__user_data.append(user)
 
     def __sign_up_users(self):
-        for user in self.user_data:
+        for user in self.__user_data:
             r = requests.post('http://127.0.0.1:8000/api/sign-up/', data=user)
             user['id'] = json.loads(r.text)['id']
 
     def __create_posts(self):
         url = 'http://127.0.0.1:8000/api/posts/'
         posts_per_user = randint(0, self.max_posts_amount)
-        for user in self.user_data:
+        for user in self.__user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(posts_per_user):
                 r = requests.post(
@@ -54,7 +54,7 @@ class Bot:
     def __like_posts(self):
         url = 'http://127.0.0.1:8000/api/likes/'
         likes_per_user = randint(0, self.max_likes_amount)
-        for user in self.user_data:
+        for user in self.__user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(likes_per_user):
                 requests.post(url=url,
