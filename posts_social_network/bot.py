@@ -14,7 +14,7 @@ class Bot:
         self.max_likes_amount = max_likes_amount
         self.faker = Faker()
 
-    def start_bot(self):
+    def run(self):
         self.__create_users_data()
         self.__sign_up_users()
         self.__create_posts()
@@ -85,4 +85,5 @@ class Bot:
 
 if __name__ == "__main__":
     bot = Bot.bot_from_config()
-    bot.start_bot()
+    bot.run()
+
