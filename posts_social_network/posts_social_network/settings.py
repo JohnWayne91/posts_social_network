@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'posts_social_network.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'posts_social_network', 'USER': 'postgres', 'PASSWORD': '2635', 'HOST': 'localhost', 'PORT': '5432',
+        'NAME': 'posts_social_network', 'USER': 'postgres', 'PASSWORD': '2635', 'HOST': 'db', 'PORT': '5432',
     }
 }
 
