@@ -1,5 +1,7 @@
 import json
 import requests
+import argparse
+import sys
 from faker import Faker
 from random import randint, choice
 
@@ -57,9 +59,11 @@ class Bot:
         for user in self.__user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(likes_per_user):
-                requests.post(url=url,
-                              data={'user': user['id'], 'post': {choice(self.created_posts_id)}},
-                              headers=headers)
+                requests.post(
+                    url=url,
+                    data={'user': user['id'], 'post': {choice(self.created_posts_id)}},
+                    headers=headers
+                )
 
     @staticmethod
     def get_headers_with_jwt(username, password):
@@ -84,6 +88,14 @@ class Bot:
 
 
 if __name__ == "__main__":
-    bot = Bot.bot_from_config()
-    bot.run()
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--users_amount', type=int)
+    parser.add_argument('--max_posts_amount', type=int)
+    parser.add_argument('--max_likes_amount', type=int)
+    if len(sys.argv) == 1:
+        bot = Bot.bot_from_config()
+        bot.run()
+    else:
+        args = parser.parse_args()
+        bot = Bot(args.users_amount, args.max_posts_amount, args.max_likes_amount)
+        bot.run()
