@@ -8,7 +8,7 @@ from random import randint, choice
 
 
 class Bot:
-    __user_data = []
+    _user_data = []
     created_posts_id = []
 
     def __init__(self, users_amount, max_posts_amount, max_likes_amount):
@@ -18,30 +18,29 @@ class Bot:
         self.faker = Faker()
 
     def run(self):
-        self.__create_users_data()
-        self.__sign_up_users()
-        self.__create_posts()
-        self.__like_posts()
+        self._create_users_data()
+        self._sign_up_users()
+        self._create_posts()
+        self._like_posts()
 
-    def __create_users_data(self):
+    def _create_users_data(self):
         for _ in range(self.users_amount):
             user = {
                 'username': self.faker.first_name() + self.faker.last_name(),
                 'email': self.faker.email(),
                 'password': self.faker.pystr(min_chars=15, max_chars=25)
             }
-            self.__user_data.append(user)
+            self._user_data.append(user)
 
-    def __sign_up_users(self):
-        for user in self.__user_data:
+    def _sign_up_users(self):
+        for user in self._user_data:
             request = requests.post('http://127.0.0.1:8000/api/v1/sign-up/', data=user)
             user['id'] = request.json()['id']
-            print(user)
 
-    def __create_posts(self):
+    def _create_posts(self):
         url = 'http://127.0.0.1:8000/api/v1/posts/'
         posts_per_user = randint(0, self.max_posts_amount)
-        for user in self.__user_data:
+        for user in self._user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(posts_per_user):
                 request = requests.post(
@@ -55,7 +54,7 @@ class Bot:
                 )
                 self.created_posts_id.append(request.json()['id'])
 
-    def __like_posts(self):
+    def _like_posts(self):
         url = 'http://127.0.0.1:8000/api/v1/likes/'
         likes_per_user = randint(0, self.max_likes_amount)
         for user in self.__user_data:
