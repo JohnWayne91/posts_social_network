@@ -5,3 +5,5 @@ posts_social_network/posts_social_network/__pycache__/
 posts_social_network/posts/__pycache__/
 posts_social_network/posts/api/__pycache__/
 ../venv/
+posts/migrations/__pycache__/
+posts/api/__pycache__/
