@@ -11,6 +11,5 @@ class UpdateLastActivityMiddleware(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
         if request.user.is_authenticated:
-            print(request.user)
             request.user.last_request = datetime.datetime.now()
             request.user.save()
