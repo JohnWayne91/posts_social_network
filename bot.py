@@ -57,7 +57,7 @@ class Bot:
     def _like_posts(self):
         url = 'http://127.0.0.1:8000/api/v1/likes/'
         likes_per_user = randint(0, self.max_likes_amount)
-        for user in self.__user_data:
+        for user in self._user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
             for j in range(likes_per_user):
                 requests.post(
