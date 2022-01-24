@@ -1,12 +1,12 @@
 from django.urls import path
 from rest_framework import routers
 
-from .views import PostApiView, LikeApiView, AnalyticView, UserActivityView, SignUpUserView
+from .views import PostApiViewSet, LikeApiViewSet, AnalyticView, UserActivityView, SignUpUserViewSet
 
 router = routers.SimpleRouter()
-router.register(r'posts', PostApiView)
-router.register(r'likes', LikeApiView)
-router.register(r'sign-up', SignUpUserView)
+router.register(r'posts', PostApiViewSet)
+router.register(r'likes', LikeApiViewSet)
+router.register(r'sign-up', SignUpUserViewSet)
 
 urlpatterns = [
     path('analytics/', AnalyticView.as_view(), name='analytic'),

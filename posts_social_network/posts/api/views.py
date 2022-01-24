@@ -12,7 +12,7 @@ from .filters import DateRangeFilterSet
 from .serializers import PostSerializer, AnalyticSerializer, UserSerializer, LikeSerializer, UserSignUpSerializer
 
 
-class PostApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,  GenericViewSet):
+class PostApiViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,  GenericViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
@@ -21,7 +21,7 @@ class PostApiView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.Creat
         return queryset
 
 
-class LikeApiView(mixins.ListModelMixin,
+class LikeApiViewSet(mixins.ListModelMixin,
                   mixins.RetrieveModelMixin,
                   mixins.CreateModelMixin,
                   mixins.DestroyModelMixin,
@@ -37,7 +37,7 @@ class AnalyticView(ListAPIView):
     serializer_class = AnalyticSerializer
 
     def get_queryset(self):
-        queryset = Like.objects.values('created_at').annotate(total_likes=Count('id'))
+        queryset = Like.objects.values('created_at').annotate(total_likes=Count('pk'))
         filtered_queryset = self.filter_queryset(queryset)
         return filtered_queryset
 
@@ -47,7 +47,7 @@ class UserActivityView(RetrieveAPIView):
     queryset = UserProfile.objects.all()
 
 
-class SignUpUserView(mixins.CreateModelMixin, GenericViewSet):
+class SignUpUserViewSet(mixins.CreateModelMixin, GenericViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserSignUpSerializer
     permission_classes = [AllowAny]
