@@ -42,7 +42,7 @@ class Bot:
         posts_per_user = randint(0, self.max_posts_amount)
         for user in self._user_data:
             headers = self.get_headers_with_jwt(user['username'], user['password'])
-            for j in range(posts_per_user):
+            for _ in range(posts_per_user):
                 request = requests.post(
                     url=url,
                     data={
