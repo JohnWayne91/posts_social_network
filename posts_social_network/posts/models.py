@@ -14,7 +14,7 @@ class Like(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.pk)
+        return str(f'{self.user} liked post {self.post})')
 
 
 class Post(models.Model):
