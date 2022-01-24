@@ -1,9 +1,44 @@
-../.idea/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+.env
+.venv
+env/
 venv/
-*/__pycache__/
-posts_social_network/posts_social_network/__pycache__/
-posts_social_network/posts/__pycache__/
-posts_social_network/posts/api/__pycache__/
+ENV/
+env.bak/
+venv.bak
 ../venv/
-posts/migrations/__pycache__/
-posts/api/__pycache__/
+
+
+
+
