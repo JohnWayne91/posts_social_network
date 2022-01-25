@@ -32,7 +32,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/sign-up/",
+					"raw": "http://127.0.0.1:8000/api/v1/sign-up/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -127,7 +127,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/posts/",
+					"raw": "http://127.0.0.1:8000/api/v1/posts/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -162,7 +162,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/posts/",
+					"raw": "http://127.0.0.1:8000/api/v1/posts/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -197,7 +197,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/posts/1/",
+					"raw": "http://127.0.0.1:8000/api/v1/posts/1/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -250,7 +250,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/likes/",
+					"raw": "http://127.0.0.1:8000/api/v1/likes/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -289,7 +289,7 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/likes/20/",
+					"raw": "http://127.0.0.1:8000/api/v1/likes/20/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -325,7 +325,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/analytics/?date_from=2022-01-19&date_to=2022-01-20",
+					"raw": "http://127.0.0.1:8000/api/v1/analytics/?date_from=2022-01-19&date_to=2022-01-20",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -359,7 +359,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/analytics/?date_from=2022-01-19&date_to=2022-01-20",
+							"raw": "http://127.0.0.1:8000/api/v1/analytics/?date_from=2022-01-19&date_to=2022-01-20",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -451,7 +451,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/user-activity/2/",
+					"raw": "http://127.0.0.1:8000/api/v1/user-activity/2/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -476,7 +476,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/user-activity/2/",
+							"raw": "http://127.0.0.1:8000/api/v1/user-activity/2/",
 							"protocol": "http",
 							"host": [
 								"127",
